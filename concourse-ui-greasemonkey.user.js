@@ -1,6 +1,6 @@
 // ==UserScript==
 // @name      concourse-ui-greasemonkey
-// @version   0.1
+// @version   0.2
 // @grant     none
 // @namespace https://github.com/asadmanji-springer
 // @author    asadmanji-springer
@@ -12,24 +12,20 @@
 var readyStateCheckInterval = setInterval(function() {
   if (document.readyState === "complete") {
     clearInterval(readyStateCheckInterval);
-
     console.log("Monitor mode is go");
-    cssHacks();
-    var cards = document.getElementsByClassName("card");
-    cards.forEach(compactSpacing);
+
+    hideCardFooter();
+    compactCardSpacing();
   }
 }, 10);
 
 
 
-function cssHacks() {
-    document.styleSheets[0].insertRule('div.card-footer { display: none !important; }');
-    document.styleSheets[0].insertRule('.dashboard .pipeline-grid { padding: 10px 10px !important; height: 20px !important; }');
+function hideCardFooter() {
+  document.styleSheets[0].insertRule('div.card-footer { display: none !important; }');
 }
 
-
-function compactSpacing(item, index) {
-  var childDiv = item.getElementsByTagName("div");
-  console.log(childDiv);
-  // childDiv.style.cssText = 'cursor:move; margin: 0px;';
+function compactCardSpacing() {
+  document.styleSheets[0].insertRule('.dashboard .pipeline-grid { padding: 10px 10px !important; height: 20px !important; }');
+  document.styleSheets[0].insertRule('div.card > div:first-child { margin: 10px 20px !important; } ');
 }
