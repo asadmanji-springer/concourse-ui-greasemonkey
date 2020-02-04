@@ -1,6 +1,6 @@
 // ==UserScript==
 // @name      concourse-ui-greasemonkey
-// @version   0.2
+// @version   0.3
 // @grant     none
 // @namespace https://github.com/asadmanji-springer
 // @author    asadmanji-springer
@@ -12,20 +12,54 @@
 var readyStateCheckInterval = setInterval(function() {
   if (document.readyState === "complete") {
     clearInterval(readyStateCheckInterval);
-    console.log("Monitor mode is go");
 
+    document.body.classList.toggle("compactSpacing");
+    document.body.classList.toggle("solarisedDark");
+
+    createToggleButtons();
+    solarisedDarkTheme();
     hideCardFooter();
     compactCardSpacing();
   }
 }, 10);
 
+function createToggleButtons() {
+	// create toggle button
+  var spacingToggleBtn = document.createElement("BUTTON");
+  spacingToggleBtn.setAttribute("class", "style-toggle");
+  spacingToggleBtn.innerHTML = "Toggle Spacing";
+  spacingToggleBtn.onclick = function() {
+     document.body.classList.toggle("compactSpacing");
+  };
 
+  var styleToggleBtn = document.createElement("BUTTON");
+  styleToggleBtn.setAttribute("class", "style-toggle");
+  styleToggleBtn.innerHTML = "Toggle Theme";
+  styleToggleBtn.onclick = function() {
+     document.body.classList.toggle("solarisedDark");
+  };
+
+  // add to top nav
+  document.styleSheets[0].insertRule('.style-toggle { border-width: 0 0 0 1px; border-color: rgb(61, 60, 60); color: white; background: rgb(30, 29, 29); cursor: pointer; }');
+  var topNav = document.getElementById("top-bar-app");
+  topNav.appendChild(spacingToggleBtn);
+  topNav.appendChild(styleToggleBtn);
+}
+
+function solarisedDarkTheme() {
+  document.styleSheets[0].insertRule('body.solarisedDark .pipeline-wrapper:nth-child(odd) div.card-header { color: rgb(148, 162, 162) !important; background: rgb(1, 43, 54) !important; }');
+  document.styleSheets[0].insertRule('body.solarisedDark .pipeline-wrapper:nth-child(odd) div.card-body { color: rgb(148, 162, 162) !important; background: rgb(1, 43, 54) !important; }');
+
+  document.styleSheets[0].insertRule('body.solarisedDark .pipeline-wrapper:nth-child(even) div.card-header { color: rgb(148, 162, 162) !important; background: #083742 !important; }');
+  document.styleSheets[0].insertRule('body.solarisedDark .pipeline-wrapper:nth-child(even) div.card-body { color: rgb(148, 162, 162) !important; background: #083742 !important; }');
+}
 
 function hideCardFooter() {
-  document.styleSheets[0].insertRule('div.card-footer { display: none !important; }');
+  document.styleSheets[0].insertRule('body.compactSpacing div.card-footer { display: none !important; }');
 }
 
 function compactCardSpacing() {
-  document.styleSheets[0].insertRule('.dashboard .pipeline-grid { padding: 10px 10px !important; height: 20px !important; }');
-  document.styleSheets[0].insertRule('div.card > div:first-child { margin: 10px 20px !important; } ');
+  document.styleSheets[0].insertRule('body.compactSpacing div.banner { height: 2px !important; }');
+  document.styleSheets[0].insertRule('body.compactSpacing .dashboard .pipeline-grid { padding: 10px 10px !important; height: 20px !important; }');
+  document.styleSheets[0].insertRule('body.compactSpacing div.card > div:first-child { margin: 10px 20px !important; } ');
 }
