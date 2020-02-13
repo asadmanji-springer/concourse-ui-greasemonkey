@@ -1,6 +1,6 @@
 // ==UserScript==
 // @name      concourse-ui-greasemonkey
-// @version   0.3
+// @version   0.4
 // @grant     none
 // @namespace https://github.com/asadmanji-springer
 // @author    asadmanji-springer
@@ -10,7 +10,7 @@
 // ==/UserScript==
 
 var readyStateCheckInterval = setInterval(function() {
-  if (document.readyState === "complete") {
+  if (document.readyState === "complete" && document.getElementsByClassName("dashboard").length > 0) {
     clearInterval(readyStateCheckInterval);
 
     document.body.classList.toggle("compactSpacing");
@@ -47,11 +47,13 @@ function createToggleButtons() {
 }
 
 function solarisedDarkTheme() {
-  document.styleSheets[0].insertRule('body.solarisedDark .pipeline-wrapper:nth-child(odd) div.card-header { color: rgb(148, 162, 162) !important; background: rgb(1, 43, 54) !important; }');
-  document.styleSheets[0].insertRule('body.solarisedDark .pipeline-wrapper:nth-child(odd) div.card-body { color: rgb(148, 162, 162) !important; background: rgb(1, 43, 54) !important; }');
+  document.styleSheets[0].insertRule('body.solarisedDark .pipeline-wrapper div.card-header { color: rgb(148, 162, 162) !important; }');
 
-  document.styleSheets[0].insertRule('body.solarisedDark .pipeline-wrapper:nth-child(even) div.card-header { color: rgb(148, 162, 162) !important; background: #083742 !important; }');
-  document.styleSheets[0].insertRule('body.solarisedDark .pipeline-wrapper:nth-child(even) div.card-body { color: rgb(148, 162, 162) !important; background: #083742 !important; }');
+  document.styleSheets[0].insertRule('body.solarisedDark .pipeline-wrapper:nth-child(odd) div.card-header { background: rgb(1, 43, 54) !important; }');
+  document.styleSheets[0].insertRule('body.solarisedDark .pipeline-wrapper:nth-child(odd) div.card-body { background: rgb(1, 43, 54) !important; }');
+
+  document.styleSheets[0].insertRule('body.solarisedDark .pipeline-wrapper:nth-child(even) div.card-header { background: #083742 !important; }');
+  document.styleSheets[0].insertRule('body.solarisedDark .pipeline-wrapper:nth-child(even) div.card-body { background: #083742 !important; }');
 }
 
 function hideCardFooter() {
@@ -60,6 +62,7 @@ function hideCardFooter() {
 
 function compactCardSpacing() {
   document.styleSheets[0].insertRule('body.compactSpacing div.banner { height: 2px !important; }');
-  document.styleSheets[0].insertRule('body.compactSpacing .dashboard .pipeline-grid { padding: 10px 10px !important; height: 20px !important; }');
-  document.styleSheets[0].insertRule('body.compactSpacing div.card > div:first-child { margin: 10px 20px !important; } ');
+  document.styleSheets[0].insertRule('body.compactSpacing div.card-header { padding: 10px !important; }');
+  document.styleSheets[0].insertRule('body.compactSpacing .dashboard .pipeline-grid { padding: 10px 10px !important; width: auto !important; height: 25px !important; }');
+  document.styleSheets[0].insertRule('body.compactSpacing div.card > div:first-child { margin: 10px 25px !important; } ');
 }
