@@ -1,6 +1,6 @@
 // ==UserScript==
 // @name      concourse-ui-greasemonkey
-// @version   0.4
+// @version   0.5
 // @grant     none
 // @namespace https://github.com/asadmanji-springer
 // @author    asadmanji-springer
@@ -63,6 +63,7 @@ function hideCardFooter() {
 function compactCardSpacing() {
   document.styleSheets[0].insertRule('body.compactSpacing div.banner { height: 2px !important; }');
   document.styleSheets[0].insertRule('body.compactSpacing div.card-header { padding: 10px !important; }');
-  document.styleSheets[0].insertRule('body.compactSpacing .dashboard .pipeline-grid { padding: 10px 10px !important; width: auto !important; height: 25px !important; }');
-  document.styleSheets[0].insertRule('body.compactSpacing div.card > div:first-child { margin: 10px 25px !important; } ');
+  document.styleSheets[0].insertRule('body.compactSpacing .dashboard-team-pipelines { display: flex; flex-wrap: wrap; flex-direction: row; height: unset !important; }');
+
+  document.styleSheets[0].insertRule('body.compactSpacing .dashboard .pipeline-wrapper { height: 150px !important; width: auto !important; position: relative !important; transform: translate(0px) !important; padding: 5px; }');
 }
